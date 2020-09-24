@@ -7,7 +7,7 @@ class Login extends Component {
 
 		this.state = {
 			email: '',
-			password: ''
+			password: ''	
 		};
 
 		this.update = this.update.bind(this);
@@ -23,17 +23,33 @@ class Login extends Component {
 		});
 	}
 
+	validate = () => {
+		let emailError="";
+
+		if(!this.state.email.includes("@")) {
+			emailError = "Invalid email";
+		}
+
+		if(emailError) {
+			this.setState({emailError});
+			return false;
+		}
+
+		return (alert("Logged in"));
+	}
 	displayLogin(e) {
-		e.preventDefault();	
-		alert('You are logged in');
+		e.preventDefault(this.validate());	
+		// const isValid = this.validate();		
 		console.log(this.state);
 		this.setState({
 			email: '',
 			password: ''
 		});
 	}
+	
 
 	render() {
+		
 		return (
 			<div className="login">
 				<form onSubmit={this.displayLogin}>
@@ -47,6 +63,9 @@ class Login extends Component {
 							name="email"
 							required
 						/>
+						<div style={{ fontSize:"12"}}>
+							{this.state.emailError}
+						</div>
 					</div>
 
 					<div className="password">
@@ -70,4 +89,5 @@ class Login extends Component {
 }
 
 export default Login;
+
 
